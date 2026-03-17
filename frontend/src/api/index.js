@@ -40,16 +40,6 @@ service.interceptors.response.use(
   error => {
     console.error('Response error:', error)
 
-    // Redirect to login on 401
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem('mirofish_token')
-      localStorage.removeItem('mirofish_user')
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login'
-      }
-      return Promise.reject(error)
-    }
-
     // 处理超时
     if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
       console.error('Request timeout')

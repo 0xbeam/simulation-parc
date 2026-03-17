@@ -8,14 +8,11 @@ import ReportView from '../views/ReportView.vue'
 import InteractionView from '../views/InteractionView.vue'
 import Login from '../views/Login.vue'
 import AppShell from '../components/layout/AppShell.vue'
-import { useAuth } from '../composables/useAuth'
-
 const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    meta: { public: true }
+    component: Login
   },
   // New dashboard route
   {
@@ -102,16 +99,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
-
-// Navigation guard: redirect to /login if not authenticated
-router.beforeEach((to, _from, next) => {
-  const { isAuthenticated } = useAuth()
-  if (to.meta.public || isAuthenticated.value) {
-    next()
-  } else {
-    next({ name: 'Login' })
-  }
 })
 
 export default router

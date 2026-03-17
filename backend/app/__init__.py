@@ -100,10 +100,6 @@ def create_app(config_class=Config):
     register_domain("market", MarketAdapter())
     register_domain("supply_chain", SupplyChainAdapter())
 
-    # JWT authentication guard for all /api/ routes
-    from .auth import login_required_hook
-    app.before_request(login_required_hook)
-    
     # 健康检查
     @app.route('/health')
     def health():
