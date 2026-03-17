@@ -3,7 +3,7 @@
     <div class="project-list-header">
       <div>
         <h1 class="project-list-title">Simulations</h1>
-        <p class="project-list-subtitle">All MiroFish simulation projects</p>
+        <p class="project-list-subtitle">All simulation projects</p>
       </div>
     </div>
 
@@ -17,7 +17,7 @@
 
     <div v-else class="project-grid">
       <!-- New project card -->
-      <button class="new-project-card" @click="$router.push('/')">
+      <button class="new-project-card" @click="$router.push('/home')">
         <div class="new-project-icon">+</div>
         <div class="new-project-label">New Simulation</div>
         <div class="new-project-hint">Upload files to begin</div>
@@ -31,10 +31,6 @@
       />
     </div>
 
-    <div v-if="error" class="project-error">
-      <p>{{ error }}</p>
-      <button class="retry-btn" @click="fetchProjects">Retry</button>
-    </div>
   </div>
 </template>
 
@@ -54,7 +50,7 @@ const fetchProjects = async () => {
     const resp = await axios.get('/api/graph/project/list')
     projects.value = resp.data.projects || resp.data || []
   } catch (e) {
-    error.value = 'Failed to load projects. The API may be unavailable.'
+    // Backend not running — show empty state silently
     projects.value = []
   } finally {
     loading.value = false
